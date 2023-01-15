@@ -12,6 +12,6 @@ using (var _context=new AppDbContext()  )
 
     foreach( var item in producsts)
     {
-        Console.WriteLine($"{item.Id} : {item.Name} : {item.Price}");
+        Console.WriteLine($"{item.Id} : {item.Name} : {item.Price}  {item.Stock}");
     }
 }
