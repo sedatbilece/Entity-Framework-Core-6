@@ -24,8 +24,6 @@ using (var _context = new AppDbContext())
     _context.Add(newProduct);
     Console.WriteLine($"state2 : {_context.Entry(newProduct).State}");
     _context.SaveChanges();
-    _context.Remove(newProduct);
-    _context.SaveChanges();
     Console.WriteLine($"state3 : {_context.Entry(newProduct).State}");
 
 
