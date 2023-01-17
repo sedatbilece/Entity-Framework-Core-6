@@ -10,10 +10,13 @@ namespace EFCORE6.CodeFirst.DAL
     {
 
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public decimal? Price { get; set; }
-        public int? Stock { get; set; }
-        public string? Barcode { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public string Barcode { get; set; }
+
+        public int CategoryId { get; set; }//relation
+        public Category Category { get; set; }//relation
 
         public Product( string name, decimal price, int stock, string barcode)
         {
