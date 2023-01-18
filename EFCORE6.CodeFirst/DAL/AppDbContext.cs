@@ -12,7 +12,8 @@ namespace EFCORE6.CodeFirst.DAL
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-       
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
         public AppDbContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -15,7 +15,7 @@ namespace EFCORE6.CodeFirst.DAL
         public int Stock { get; set; }
         public string Barcode { get; set; }
 
-     
+        public ProductFeature ProductFeature { get; set; }//OnetoOne
 
         public int CategoryId { get; set; }//relation OnetoMany
         public Category Category { get; set; }//relation

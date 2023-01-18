@@ -12,17 +12,13 @@ using (var _context = new AppDbContext())
 
     var category = new Category() { Name = "Kalemler" };
 
-    var product = new Product () { Name="kalem1",Price=100,Stock=0,Barcode= "123",Category=category };
-
+    var product = new Product () { Name="kalem1",Price=100,Stock=0,Barcode= "123" };
+    product.Category = category;
 
     _context.Add(product);
     _context.SaveChanges();
 
-
-
-
-
-   /*
+  
     var producsts = await _context.Products.AsNoTracking().ToListAsync();
 
     foreach (var item in producsts)
@@ -48,7 +44,7 @@ using (var _context = new AppDbContext())
     var prd3 = _context.Products.Single(x => x.Id == 7);//return prd 7
     var prd4 = _context.Products.Where(x => x.Id > 4).ToList();// return 5,6,7 id data
     var prd5 = _context.Products.Find(5);//return prd id 5
-   */
+   
     
 
 }
