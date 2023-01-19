@@ -9,11 +9,17 @@ namespace EFCORE6.CodeFirst.DAL
 {
     public class AppDbContext : DbContext
     {
+        //BasePerson eklenirse tek bir tabloda 2sini birleştirir.
+        //public DbSet<BasePerson> People { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Student> Students { get; set; }
-        public DbSet<Teacher> Teachers { get; set; }
+
+        //public DbSet<Product> Products { get; set; }
+        //public DbSet<Category> Categories { get; set; }
+        //public DbSet<Student> Students { get; set; }
+        //public DbSet<Teacher> Teachers { get; set; }
+
         public AppDbContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -23,7 +29,7 @@ namespace EFCORE6.CodeFirst.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().ToTable("ProductTb", "products");
+            //modelBuilder.Entity<Product>().ToTable("ProductTb", "products");
         }
     }
 }

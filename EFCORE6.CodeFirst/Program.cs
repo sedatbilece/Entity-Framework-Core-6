@@ -5,7 +5,14 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("Hello, World! from codefirst");
 
 
+using (var _context = new AppDbContext())
+{
 
+}
+
+
+
+/*
 using (var _context = new AppDbContext())
 
 {
@@ -44,7 +51,5 @@ using (var _context = new AppDbContext())
     var prd3 = _context.Products.Single(x => x.Id == 7);//return prd 7
     var prd4 = _context.Products.Where(x => x.Id > 4).ToList();// return 5,6,7 id data
     var prd5 = _context.Products.Find(5);//return prd id 5
-   
-    
-
 }
+*/
