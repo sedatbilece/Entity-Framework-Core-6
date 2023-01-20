@@ -8,6 +8,57 @@ Console.WriteLine("Hello, World! from codefirst");
 using (var _context = new AppDbContext())
 {
 
+    var category = new Category() { Name = "Kalemler" };
+
+
+
+    var ProductFulls = _context.ProductFulls
+        .FromSqlRaw(@"select p.Id 'Product_Id',c.Name 'CategoryName',p.Name,p.Price,pf.Height
+from Products p 
+join ProductFeatures pf on p.Id= pf.Id
+join Categories c on p.CategoryId = C.Id").ToList();
+
+
+    ProductFulls.ForEach(x =>
+    {
+        Console.WriteLine($" { x.Product_Id  } - { x.Name } - { x.CategoryName}");
+    });
+
+    //category.Products.Add(new Product()
+    //{
+    //    Name = "kalem1",
+    //    Price = 100,
+    //    Stock = 150,
+    //    Barcode = "123",
+    //    ProductFeature = new
+    //    ProductFeature()
+    //    { Color = "red", Width = 100, Height = 100 }
+    //});
+    //category.Products.Add(new Product()
+    //{
+    //    Name = "kalem2",
+    //    Price = 200,
+    //    Stock = 3000,
+    //    Barcode = "456",
+    //    ProductFeature = new
+    //    ProductFeature()
+    //    { Color = "green", Width = 100, Height = 100 }
+    //});
+    //category.Products.Add(new Product()
+    //{
+    //    Name = "kalem3",
+    //    Price = 300,
+    //    Stock = 450,
+    //    Barcode = "789",
+    //    ProductFeature = new
+    //    ProductFeature()
+    //    { Color = "blue", Width = 100, Height = 100 }
+    //});
+
+    //_context.Categories.Add(category);
+    //_context.SaveChanges();
+    //Console.WriteLine("işlem bitti");
+
 }
 
 
