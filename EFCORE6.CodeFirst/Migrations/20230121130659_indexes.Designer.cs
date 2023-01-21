@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCORE6.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230120145828_keyless-entity")]
-    partial class keylessentity
+    [Migration("20230121130659_indexes")]
+    partial class indexes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,7 +57,7 @@ namespace EFCORE6.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -68,6 +68,8 @@ namespace EFCORE6.CodeFirst.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Products");
                 });
@@ -89,7 +91,7 @@ namespace EFCORE6.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductFeatures");
+                    b.ToTable("ProductFeature");
                 });
 
             modelBuilder.Entity("EFCORE6.CodeFirst.DAL.Product", b =>

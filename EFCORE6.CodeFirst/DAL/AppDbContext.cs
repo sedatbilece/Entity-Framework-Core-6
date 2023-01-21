@@ -19,8 +19,8 @@ namespace EFCORE6.CodeFirst.DAL
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ProductFeature> ProductFeatures { get; set; }
-        public DbSet<ProductFull> ProductFulls { get; set; }
+        //public DbSet<ProductFeature> ProductFeatures { get; set; }
+        //public DbSet<ProductFull> ProductFulls { get; set; }
 
 
 
@@ -36,6 +36,7 @@ namespace EFCORE6.CodeFirst.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Product>().ToTable("ProductTb", "products");
+            //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => x.Price);
         }
     }
 }

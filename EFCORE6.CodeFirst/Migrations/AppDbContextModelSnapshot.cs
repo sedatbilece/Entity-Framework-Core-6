@@ -55,7 +55,7 @@ namespace EFCORE6.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -66,6 +66,8 @@ namespace EFCORE6.CodeFirst.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("Name");
 
                     b.ToTable("Products");
                 });
@@ -87,7 +89,7 @@ namespace EFCORE6.CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductFeatures");
+                    b.ToTable("ProductFeature");
                 });
 
             modelBuilder.Entity("EFCORE6.CodeFirst.DAL.Product", b =>

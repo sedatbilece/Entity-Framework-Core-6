@@ -4,7 +4,7 @@
 
 namespace EFCORE6.CodeFirst.Migrations
 {
-    public partial class keylessentity : Migration
+    public partial class indexes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,7 @@ namespace EFCORE6.CodeFirst.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     Barcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -45,7 +45,7 @@ namespace EFCORE6.CodeFirst.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductFeatures",
+                name: "ProductFeature",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
@@ -55,9 +55,9 @@ namespace EFCORE6.CodeFirst.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductFeatures", x => x.Id);
+                    table.PrimaryKey("PK_ProductFeature", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductFeatures_Products_Id",
+                        name: "FK_ProductFeature_Products_Id",
                         column: x => x.Id,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -68,12 +68,17 @@ namespace EFCORE6.CodeFirst.Migrations
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_Name",
+                table: "Products",
+                column: "Name");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductFeatures");
+                name: "ProductFeature");
 
             migrationBuilder.DropTable(
                 name: "Products");

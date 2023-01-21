@@ -8,21 +8,22 @@ Console.WriteLine("Hello, World! from codefirst");
 using (var _context = new AppDbContext())
 {
 
-    var category = new Category() { Name = "Kalemler" };
 
 
 
-    var ProductFulls = _context.ProductFulls
-        .FromSqlRaw(@"select p.Id 'Product_Id',c.Name 'CategoryName',p.Name,p.Price,pf.Height
-from Products p 
-join ProductFeatures pf on p.Id= pf.Id
-join Categories c on p.CategoryId = C.Id").ToList();
 
 
-    ProductFulls.ForEach(x =>
-    {
-        Console.WriteLine($" { x.Product_Id  } - { x.Name } - { x.CategoryName}");
-    });
+//    var ProductFulls = _context.ProductFulls
+//        .FromSqlRaw(@"select p.Id 'Product_Id',c.Name 'CategoryName',p.Name,p.Price,pf.Height
+//from Products p 
+//join ProductFeatures pf on p.Id= pf.Id
+//join Categories c on p.CategoryId = C.Id").ToList();
+
+
+//    ProductFulls.ForEach(x =>
+//    {
+//        Console.WriteLine($" { x.Product_Id  } - { x.Name } - { x.CategoryName}");
+//    });
 
     //category.Products.Add(new Product()
     //{
