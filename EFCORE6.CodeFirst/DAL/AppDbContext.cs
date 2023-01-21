@@ -37,6 +37,7 @@ namespace EFCORE6.CodeFirst.DAL
         {
             //modelBuilder.Entity<Product>().ToTable("ProductTb", "products");
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => x.Price);
+            modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck","[Price]>[DiscountPrice]");
         }
     }
 }
