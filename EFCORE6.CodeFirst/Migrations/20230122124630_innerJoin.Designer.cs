@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCORE6.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230121131901_constraintData")]
-    partial class constraintData
+    [Migration("20230122124630_innerJoin")]
+    partial class innerJoin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

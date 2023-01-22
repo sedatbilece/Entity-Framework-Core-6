@@ -4,7 +4,7 @@
 
 namespace EFCORE6.CodeFirst.Migrations
 {
-    public partial class indexes : Migration
+    public partial class innerJoin : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,7 @@ namespace EFCORE6.CodeFirst.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DiscountPrice = table.Column<decimal>(type: "decimal(9,2)", precision: 9, scale: 2, nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false),
                     Barcode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
@@ -36,6 +37,7 @@ namespace EFCORE6.CodeFirst.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.CheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
