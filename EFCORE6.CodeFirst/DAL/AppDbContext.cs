@@ -19,6 +19,9 @@ namespace EFCORE6.CodeFirst.DAL
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductEssantial> ProductEssantials { get; set; }
+
+
         //public DbSet<ProductFeature> ProductFeatures { get; set; }
         //public DbSet<ProductFull> ProductFulls { get; set; }
 
@@ -38,6 +41,7 @@ namespace EFCORE6.CodeFirst.DAL
             //modelBuilder.Entity<Product>().ToTable("ProductTb", "products");
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => x.Price);
             modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck","[Price]>[DiscountPrice]");
+            modelBuilder.Entity<ProductEssantial>().HasNoKey().ToSqlQuery("select Name,Price from Products");
         }
     }
 }
