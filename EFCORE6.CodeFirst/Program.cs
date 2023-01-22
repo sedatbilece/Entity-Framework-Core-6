@@ -8,6 +8,19 @@ Console.WriteLine("Hello, World! from codefirst");
 using (var _context = new AppDbContext())
 {
 
+    var prd = await _context.Products.FromSqlRaw("select * from Products").ToListAsync();
+
+
+    //parametre verme işlemi
+    var id = 2;
+    var prd2 = await _context.Products.FromSqlRaw("select * from Products where id={0}",id).FirstAsync();
+
+    var price = 100;
+    var prd3 = await _context.Products.FromSqlRaw("select * from Products where Price > {0}",price).ToListAsync();
+
+    // $ ile içeride değişken ile parametre verme
+    var prd4 = await _context.Products.FromSqlRaw($"select * from Products where Price > {price}").ToListAsync();
+    /*
     var result = _context.Categories.Join(_context.Products, x => x.Id, y => y.CategoryId, (c, p) =>
     new {
         CategoryName=c.Name,
@@ -19,6 +32,7 @@ using (var _context = new AppDbContext())
         {
             Console.WriteLine($" { x.CategoryName} - { x.ProductName} - { x.ProductPrice}");
         });
+    */
 
 
     //    var ProductFulls = _context.ProductFulls
