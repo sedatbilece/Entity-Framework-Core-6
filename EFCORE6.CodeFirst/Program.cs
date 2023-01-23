@@ -5,10 +5,30 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("Hello, World! from codefirst");
 
 
+
+GetProductPage(2,4).ForEach(x =>
+{
+    Console.WriteLine($" {x.Name} - {x.Id} ");
+});
+
+  static List<Product>  GetProductPage(int page,int pageSize)
+{
+
+    using (var _context = new AppDbContext())
+    {
+
+        return _context.Products.OrderByDescending(x => x.Id)
+                            .Skip((page - 1) * pageSize).Take(pageSize).ToList();
+    }
+        
+}
+
+
 using (var _context = new AppDbContext())
 {
 
 
+    /*
     var prd = _context.ProductEssantials.ToList();
 
 
@@ -16,7 +36,7 @@ using (var _context = new AppDbContext())
     {
         Console.WriteLine($" {x.Name} - {x.Price} ");
     });
-
+    */
 
 
     /*
@@ -64,87 +84,88 @@ using (var _context = new AppDbContext())
     //    });
 
 
+    /* 
+     var category = new Category() { Name="Defterler"};
+
+     category.Products.Add(new Product()
+     {
+         Name = "DEFTER1",
+         Price = 100,
+         Stock = 150,
+         Barcode = "123",
+         ProductFeature = new
+         ProductFeature()
+         { Color = "red", Width = 100, Height = 100 }
+     });
+     category.Products.Add(new Product()
+     {
+         Name = "DEFTER2",
+         Price = 200,
+         Stock = 300,
+         Barcode = "456",
+         ProductFeature = new
+         ProductFeature()
+         { Color = "green", Width = 100, Height = 100 }
+     });
+     category.Products.Add(new Product()
+     {
+         Name = "DEFTER3",
+         Price = 300,
+         Stock = 450,
+         Barcode = "789",
+         ProductFeature = new
+         ProductFeature()
+         { Color = "blue", Width = 100, Height = 100 }
+     });
+
+     _context.Categories.Add(category);
+     _context.SaveChanges();
+     Console.WriteLine("işlem bitti");
+
+
+ }
+ */
+
+
     /*
-    var category = new Category() { Name="Kalemler"};
+    using (var _context = new AppDbContext())
 
-    category.Products.Add(new Product()
     {
-        Name = "kalem1",
-        Price = 100,
-        Stock = 150,
-        Barcode = "123",
-        ProductFeature = new
-        ProductFeature()
-        { Color = "red", Width = 100, Height = 100 }
-    });
-    category.Products.Add(new Product()
-    {
-        Name = "kalem2",
-        Price = 200,
-        Stock = 300,
-        Barcode = "456",
-        ProductFeature = new
-        ProductFeature()
-        { Color = "green", Width = 100, Height = 100 }
-    });
-    category.Products.Add(new Product()
-    {
-        Name = "kalem3",
-        Price = 300,
-        Stock = 450,
-        Barcode = "789",
-        ProductFeature = new
-        ProductFeature()
-        { Color = "blue", Width = 100, Height = 100 }
-    });
 
-    _context.Categories.Add(category);
-    _context.SaveChanges();
-    Console.WriteLine("işlem bitti");
-    */
+        var category = new Category() { Name = "Kalemler" };
 
-}
+        var product = new Product () { Name="kalem1",Price=100,Stock=0,Barcode= "123" };
+        product.Category = category;
+
+        _context.Add(product);
+        _context.SaveChanges();
 
 
+        var producsts = await _context.Products.AsNoTracking().ToListAsync();
 
-/*
-using (var _context = new AppDbContext())
+        foreach (var item in producsts)
+        {
+            item.Stock += 100;
+            var state = _context.Entry(item).State;
+            Console.WriteLine($"{item.Id} - {item.Name} - {item.Price} - {item.Stock} - {item.Barcode} - {state}");
+        }
+        _context.SaveChanges();
 
-{
 
-    var category = new Category() { Name = "Kalemler" };
+        var newProduct = new Product("kalemx",200,1000,"333");
 
-    var product = new Product () { Name="kalem1",Price=100,Stock=0,Barcode= "123" };
-    product.Category = category;
+        Console.WriteLine($"state1 : {_context.Entry(newProduct).State}");
+        _context.Add(newProduct);
+        Console.WriteLine($"state2 : {_context.Entry(newProduct).State}");
+        _context.SaveChanges();
+        Console.WriteLine($"state3 : {_context.Entry(newProduct).State}");
 
-    _context.Add(product);
-    _context.SaveChanges();
 
-  
-    var producsts = await _context.Products.AsNoTracking().ToListAsync();
-
-    foreach (var item in producsts)
-    {
-        item.Stock += 100;
-        var state = _context.Entry(item).State;
-        Console.WriteLine($"{item.Id} - {item.Name} - {item.Price} - {item.Stock} - {item.Barcode} - {state}");
+        //var prd = _context.Products.First(x => x.Id>100);//return exception
+        var prd2 = _context.Products.FirstOrDefault(x => x.Id>100);//return null
+        var prd3 = _context.Products.Single(x => x.Id == 7);//return prd 7
+        var prd4 = _context.Products.Where(x => x.Id > 4).ToList();// return 5,6,7 id data
+        var prd5 = _context.Products.Find(5);//return prd id 5
     }
-    _context.SaveChanges();
-
-
-    var newProduct = new Product("kalemx",200,1000,"333");
-
-    Console.WriteLine($"state1 : {_context.Entry(newProduct).State}");
-    _context.Add(newProduct);
-    Console.WriteLine($"state2 : {_context.Entry(newProduct).State}");
-    _context.SaveChanges();
-    Console.WriteLine($"state3 : {_context.Entry(newProduct).State}");
-
-    
-    //var prd = _context.Products.First(x => x.Id>100);//return exception
-    var prd2 = _context.Products.FirstOrDefault(x => x.Id>100);//return null
-    var prd3 = _context.Products.Single(x => x.Id == 7);//return prd 7
-    var prd4 = _context.Products.Where(x => x.Id > 4).ToList();// return 5,6,7 id data
-    var prd5 = _context.Products.Find(5);//return prd id 5
+    */
 }
-*/
