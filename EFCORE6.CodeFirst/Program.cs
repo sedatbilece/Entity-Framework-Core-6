@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 Console.WriteLine("Hello, World! from codefirst");
 
 
-
+/*
 GetProductPage(2,4).ForEach(x =>
 {
     Console.WriteLine($" {x.Name} - {x.Id} ");
@@ -22,10 +22,16 @@ GetProductPage(2,4).ForEach(x =>
     }
         
 }
+*/
 
 
 using (var _context = new AppDbContext())
 {
+
+
+    var prd100 = _context.Products.TagWith("fiyatı 100den yüksek ürünler").Where(x=>x.Price>100).ToList();
+
+
 
 
     /*
