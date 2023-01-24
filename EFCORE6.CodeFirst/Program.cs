@@ -28,10 +28,15 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
+    var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull").ToListAsync();
 
-    var prd100 = _context.Products.TagWith("fiyatı 100den yüksek ürünler").Where(x=>x.Price>100).ToList();
+    list.ForEach(x =>
+    {
+        Console.WriteLine($" {x.Product_Id} - {x.Name} - {x.Price} - {x.CategoryName} ");
+    });
 
 
+    //var prd100 = _context.Products.TagWith("fiyatı 100den yüksek ürünler").Where(x=>x.Price>100).ToList();
 
 
     /*
