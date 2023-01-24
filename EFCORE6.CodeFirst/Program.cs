@@ -28,7 +28,7 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
-    var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull_param 1 ,100").ToListAsync();
+    var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull").ToListAsync();
 
     list.ForEach(x =>
     {
