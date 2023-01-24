@@ -28,12 +28,26 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
-    var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull").ToListAsync();
+    var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull_param 1 ,100").ToListAsync();
 
     list.ForEach(x =>
     {
         Console.WriteLine($" {x.Product_Id} - {x.Name} - {x.Price} - {x.CategoryName} ");
     });
+    /*
+     create procedure sp_get_productFull_param
+@categoryId int,
+@price decimal(9,2)
+as
+begin
+     select p.Id 'Product_Id',p.Name,c.Name 'CategoryName',p.Price,pf.Height from Products p
+	 join Categories c on p.CategoryId=c.Id
+	 join  ProductFeature pf on p.Id=pf.Id
+	 where p.CategoryId=@categoryId and p.Price >@price
+
+end
+     */
+
 
 
     //var prd100 = _context.Products.TagWith("fiyatı 100den yüksek ürünler").Where(x=>x.Price>100).ToList();
