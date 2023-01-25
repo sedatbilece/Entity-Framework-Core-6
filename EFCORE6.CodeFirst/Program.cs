@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EFCORE6.CodeFirst.DAL;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 Console.WriteLine("Hello, World! from codefirst");
 
@@ -28,12 +29,32 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
+    var anonymous = _context.Products.Include(x => x.Category).Select(x => new
+    {
+        CategoryName = x.Category.Name,
+        ProductName = x.Name,
+        ProductPrice = x.Price
+
+    }).Where(y=> y.ProductPrice>100).ToList();
+
+    // ToList() ile db den veri getirilir yazılmaz ise sorgu işlemi yapılmaz
+
+    anonymous.ForEach(x =>
+    {
+        Console.WriteLine($" {x.CategoryName} - {x.ProductName} - {x.ProductPrice}");
+    });
+
+
+
+
+    /*
     var list = await _context.ProductFulls.FromSqlRaw("exec sp_get_productFull_param 1 ,100").ToListAsync();
 
     list.ForEach(x =>
     {
         Console.WriteLine($" {x.Product_Id} - {x.Name} - {x.Price} - {x.CategoryName} ");
     });
+    */
     /*
      create procedure sp_get_productFull_param
 @categoryId int,
