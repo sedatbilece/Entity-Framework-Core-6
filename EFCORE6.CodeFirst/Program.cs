@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EFCORE6.CodeFirst.DAL;
+using EFCORE6.CodeFirst.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -29,7 +30,7 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
-    var anonymous = _context.Products.Include(x => x.Category).Select(x => new
+    var anonymous = _context.Products.Include(x => x.Category).Select(x => new ProductDto
     {
         CategoryName = x.Category.Name,
         ProductName = x.Name,
