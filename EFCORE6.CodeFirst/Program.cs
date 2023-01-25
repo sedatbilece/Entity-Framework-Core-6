@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using EFCORE6.CodeFirst.DAL;
 using EFCORE6.CodeFirst.DTOs;
+using EFCORE6.CodeFirst.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -30,6 +31,16 @@ GetProductPage(2,4).ForEach(x =>
 using (var _context = new AppDbContext())
 {
 
+
+    var prd = _context.Products.ToList();
+
+    var prdDto =ObjectMapper.Mapper.Map<List<ProductDto>>(prd);
+
+
+
+    Console.WriteLine("işlem bitti");
+
+    /*
     var anonymous = _context.Products.Include(x => x.Category).Select(x => new ProductDto
     {
         CategoryName = x.Category.Name,
@@ -44,7 +55,7 @@ using (var _context = new AppDbContext())
     {
         Console.WriteLine($" {x.CategoryName} - {x.ProductName} - {x.ProductPrice}");
     });
-
+    */
 
 
 
