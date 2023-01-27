@@ -32,13 +32,45 @@ using (var _context = new AppDbContext())
 {
 
 
+
+    using(var transaction = _context.Database.BeginTransaction())
+    {
+        //işlem 1
+        var category = new Category() { Name = "kılıflar" };
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+
+
+
+        //işlem 2
+        var prd = new Product()
+        {
+            Name = "kılıf 1",
+            Price = 100,
+            Stock = 150,
+            Barcode = "123",
+            CategoryId = category.Id
+        };
+
+        _context.Products.Add(prd);
+        _context.SaveChanges();
+        transaction.Commit();   
+    }
+
+
+    
+
+
+
+
+    /*
     var prd = _context.Products.ToList();
 
     var prdDto =ObjectMapper.Mapper.Map<List<ProductDto>>(prd);
 
-
-
     Console.WriteLine("işlem bitti");
+    */
+
 
     /*
     var anonymous = _context.Products.Include(x => x.Category).Select(x => new ProductDto
