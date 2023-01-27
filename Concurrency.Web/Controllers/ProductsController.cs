@@ -1,6 +1,7 @@
 ﻿using Concurrency.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Concurrency.Web.Controllers
 {
@@ -24,11 +25,36 @@ namespace Concurrency.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Product product)
         {
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Products.Update(product);
+                await _context.SaveChangesAsync();
 
 
-            return RedirectToAction(nameof(List));
+                return RedirectToAction(nameof(List));
+
+            }
+            catch(DbUpdateConcurrencyException ex )
+            {
+                var expEntry = ex.Entries.First();
+                var currentProduct = expEntry.Entity as Product;
+                
+                var clientValues = expEntry.CurrentValues;
+
+                var databaseValues = expEntry.GetDatabaseValues();
+
+                var databaseProduct = databaseValues.ToObject() as Product;
+
+                if (databaseValues == null)
+                {
+                    ModelState.AddModelError(string.Empty, "Bu ürün başka bir kullanıcı tarafından silindi");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Bu ürün başka bir kullanıcı tarafından güncellendi");
+                }
+                return View(product);
+            }
         }
 
         public async Task<IActionResult> List()
